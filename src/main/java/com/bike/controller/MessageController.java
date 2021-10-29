@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/Message")
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 public class MessageController {
     @Autowired
     private MessageService messageService;
@@ -30,5 +29,17 @@ public class MessageController {
     @ResponseStatus(HttpStatus.CREATED)
     public Message save(@RequestBody Message message) {
         return messageService.save(message);
+    }
+    
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Message update (@RequestBody Message message) {
+        return messageService.update(message);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete(@PathVariable int id) {
+        return messageService.deleteMessage(id);
     }
 }

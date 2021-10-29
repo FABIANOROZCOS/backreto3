@@ -10,28 +10,53 @@ import java.util.Optional;
 
 @Service
 public class CategoryService {
-
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryRepository metodosCrud;
 
     public List<Category> getAll() {
-        return categoryRepository.getAll();
+        return metodosCrud.getAll();
     }
 
-    public Optional<Category> getCategory(int id) {
-        return categoryRepository.getCategory(id);
+    public Optional<Category> getCategory(int idCategory) {
+        return metodosCrud.getCategory(idCategory);
     }
 
     public Category save(Category category) {
         if (category.getId() == null) {
-            return categoryRepository.save(category);
-        } else {
-            Optional<Category> category1 = categoryRepository.getCategory(category.getId());
-            if (category1.isEmpty()) {
-                return categoryRepository.save(category);
-            } else {
+            return metodosCrud.save(category);
+        }else {
+            Optional<Category> evt= metodosCrud.getCategory(category.getId());
+            if(evt.isEmpty()) {
+                return metodosCrud.save(category);
+            }else{
                 return category;
             }
         }
+    }
+    public Category update (Category category){
+        if(category.getId()!=null){
+            Optional<Category>g=metodosCrud.getCategory(category.getId());
+            if(!g.isEmpty()){
+                if(category.getDescription()!=null){
+                    g.get().setDescription(category.getDescription());
+                }
+                if(category.getName()!=null){
+                    g.get().setName(category.getName());
+                }
+                if(category.getName()!=null){
+                    g.get().setName(category.getName());
+                }
+                return metodosCrud.save(g.get());
+            }
+        }
+        return category;
+    }
+    public boolean deleteCategory(int categoryId){
+        Boolean d=getCategory(categoryId).map(category -> {
+            metodosCrud.delete(category);
+            return true;
+        }).orElse(false);
+        return d;
+    
     }
 }

@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/Score")
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 public class ScoreController {
 
     @Autowired

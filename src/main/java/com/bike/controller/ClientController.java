@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/Client")
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
+
 public class ClientController {
 
     @Autowired
@@ -31,5 +31,17 @@ public class ClientController {
     @ResponseStatus(HttpStatus.CREATED)
     public Client save(@RequestBody Client client) {
         return clientService.save(client);
+    }
+    
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Client update (@RequestBody Client client) {
+        return clientService.update(client);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete(@PathVariable int id) {
+        return clientService.deleteClient(id);
     }
 }

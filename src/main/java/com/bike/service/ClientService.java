@@ -12,26 +12,57 @@ import java.util.Optional;
 public class ClientService {
 
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientRepository metodosCrud;
 
     public List<Client> getAll() {
-        return clientRepository.getAll();
+        return metodosCrud.getAll();
     }
 
     public Optional<Client> getClient(int clientId) {
-        return clientRepository.getClient(clientId);
+        return metodosCrud.getClient(clientId);
     }
 
     public Client save(Client client) {
         if (client.getIdClient() == null) {
-            return clientRepository.save(client);
+            return metodosCrud.save(client);
         } else {
-            Optional<Client> e = clientRepository.getClient(client.getIdClient());
-            if (e.isEmpty()) {
-                return clientRepository.save(client);
+            Optional<Client> evt = metodosCrud.getClient(client.getIdClient());
+            if (evt.isEmpty()) {
+                return metodosCrud.save(client);
             } else {
                 return client;
             }
         }
+    }
+    public Client update (Client client){
+        if(client.getIdClient()!=null){
+            Optional<Client>e=metodosCrud.getClient(client.getIdClient());
+            if(!e.isEmpty()){
+                if(client.getName()!=null){
+                    e.get().setName(client.getName());
+                }
+                if(client.getAge()!=null){
+                    e.get().setAge(client.getAge());
+                }
+                if(client.getPassword()!=null){
+                    e.get().setPassword(client.getPassword());
+                }
+                metodosCrud.save(e.get());
+                return e.get();
+            }else{
+                return client;
+            }
+        }else{
+            return client;
+        }
+        
+    }
+    public boolean deleteClient(int clientId){
+        Boolean aBoolean=getClient(clientId).map(client -> {
+            metodosCrud.delete(client);
+            return true;
+        }).orElse(false);
+        return aBoolean;
+    
     }
 }

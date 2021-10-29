@@ -11,17 +11,21 @@ import java.util.Optional;
 public class CategoryRepository {
 
     @Autowired
-    private CategoryCrudRepository categoryCrudRepository;
+    private CategoryCrudRepository crud2;
 
     public List<Category> getAll() {
-        return (List<Category>) categoryCrudRepository.findAll();
+        return (List<Category>) crud2.findAll();
     }
 
     public Optional<Category> getCategory(int id) {
-        return categoryCrudRepository.findById(id);
+        return crud2.findById(id);
     }
 
     public Category save(Category category) {
-        return categoryCrudRepository.save(category);
+        return crud2.save(category);
+    }
+    
+     public void delete(Category category) {
+        crud2.delete(category);
     }
 }

@@ -12,23 +12,34 @@ import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/Category")
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
     @GetMapping("/all")
-    public List<Category> getAll(){
+    public List<Category> getCategory(){
         return categoryService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<Category> getCategory(@PathVariable("id") int id) {
-        return categoryService.getCategory(id);
+    public Optional<Category> getCategory(@PathVariable("id") int idCategory) {
+        return categoryService.getCategory(idCategory);
     }
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Category save(@RequestBody Category category) {
         return categoryService.save(category);
+    }
+    
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Category update(@RequestBody Category category) {
+        return categoryService.update(category);
+    }
+    
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete(@PathVariable int id) {
+        return categoryService.deleteCategory(id);
     }
 }

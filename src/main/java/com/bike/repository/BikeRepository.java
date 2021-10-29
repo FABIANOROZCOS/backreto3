@@ -12,17 +12,21 @@ import java.util.Optional;
 @Repository
 public class BikeRepository {
     @Autowired
-    private BikeCrudRepository bikeCrudRepository;
+    private BikeCrudRepository crud;
 
     public List<Bike> getAll(){
-        return (List<Bike>) bikeCrudRepository.findAll();
+        return (List<Bike>) crud.findAll();
     }
 
     public Optional<Bike> getBike(int id){
-        return bikeCrudRepository.findById(id);
+        return crud.findById(id);
     }
 
     public Bike save(Bike bike){
-        return bikeCrudRepository.save(bike);
+        return crud.save(bike);
+    }
+    
+    public void delete(Bike bike){
+        crud.delete(bike);
     }
 }

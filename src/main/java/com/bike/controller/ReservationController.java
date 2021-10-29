@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/Reservation")
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 public class ReservationController {
     @Autowired
     private ReservationService reservationService;
@@ -29,5 +28,17 @@ public class ReservationController {
     @PostMapping("/save")@ResponseStatus(HttpStatus.CREATED)
     public Reservation save(@RequestBody Reservation reservation) {
         return reservationService.save(reservation);
+    }
+    
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Reservation update (@RequestBody Reservation reservation) {
+        return reservationService.update(reservation);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete(@PathVariable int id) {
+        return reservationService.deleteReservation(id);
     }
 }
