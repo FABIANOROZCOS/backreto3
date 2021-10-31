@@ -1,8 +1,10 @@
 package com.bike.controller;
 
 import com.bike.model.Reservation;
+import com.bike.repository.crud.CountClient;
 
 import com.bike.service.ReservationService;
+import com.bike.service.StatusReservas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,4 +43,19 @@ public class ReservationController {
     public boolean delete(@PathVariable("id") int reservationId) {
         return reservationService.deleteReservation(reservationId);
     }
+    @GetMapping("/report-status")
+    public StatusReservas getReservas(){
+        return reservationService.reporteStatusServicio();
+    }
+    
+    @GetMapping("/report-dates/{dateOne}/{dateTwo}")
+     public List<Reservation> getReservasTiempo (@PathVariable("dateOne")String dateOne, @PathVariable("dateTwo")String dateTwo ){
+        return reservationService.reporteTiempoServicio(dateOne, dateTwo);
+    }
+     
+    @GetMapping("/report-clients")
+    public List<CountClient> getClient(){
+        return reservationService.reporteClientesServicio();
+    }
+
 }
