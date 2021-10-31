@@ -14,12 +14,6 @@ import org.springframework.http.HttpStatus;
 @RestController
 @RequestMapping("/api/Bike")
 public class BikeController {
-    @GetMapping("/holaMundo")
-    public String saludad() {
-    return "hola Mundo";
-    }
-
-    
     @Autowired
     private BikeService bikeService;
     @GetMapping("/all")
@@ -46,7 +40,7 @@ public class BikeController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public boolean delete(@PathVariable int id) {
-        return bikeService.deleteBike(id);
+    public boolean delete(@PathVariable ("id") int bikeId){
+        return bikeService.deleteBike(bikeId);
     }
 }   

@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/Client")
-
 public class ClientController {
 
     @Autowired
@@ -23,8 +22,8 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Client> getClient(@PathVariable("id") int clientId) {
-        return clientService.getClient(clientId);
+    public Optional<Client> getClient(@PathVariable("id") int clientid) {
+        return clientService.getClient(clientid);
     }
 
     @PostMapping("/save")
@@ -41,7 +40,7 @@ public class ClientController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public boolean delete(@PathVariable int id) {
-        return clientService.deleteClient(id);
+    public boolean delete(@PathVariable ("id") int clientId){
+        return clientService.deleteClient(clientId);
     }
 }
