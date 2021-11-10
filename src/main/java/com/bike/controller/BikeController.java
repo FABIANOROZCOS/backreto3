@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/Bike")
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class BikeController {
     @Autowired
     private BikeService bikeService;
